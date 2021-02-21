@@ -14,7 +14,12 @@ const CONNECTION_URL = process.env.ATLAS_URI;
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(CONNECTION_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
+  .connect(CONNECTION_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: true,
+  })
   .then(() => {
     app.listen(PORT, () => console.log(`Server is runnig on port ${PORT}`));
   })
@@ -22,5 +27,5 @@ mongoose
 
 import UserRouter from "./api/routes/UserRouter.js";
 import TodoRouter from "./api/routes/TodoRouter.js";
-app.use("/api/user",UserRouter);
-app.use("/api/todo",TodoRouter);
+app.use("/api/user", UserRouter);
+app.use("/api/todo", TodoRouter);
