@@ -18,11 +18,11 @@ const userSchema = mongoose.Schema({
     type: Array,
     default: [],
   },
-  createdAt:{
-      type:Date,
-      default:new Date()
-  }
+  createdAt: {
+    type: Date,
+    default: new Date(),
+  },
 });
 
-const User = mongoose.model("User", userSchema,"users");
+const User = mongoose.model("User", userSchema, "users");
 export default User;
