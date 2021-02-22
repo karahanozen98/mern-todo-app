@@ -15,7 +15,8 @@ router.get("/:userId", async (req, res) => {
     // get todos if it's not deleted or less than 2 days old
     const todoList = await Todo.find({
       _id: todos,
-      $or: [{ isDeleted: false }, { createdAt: { $gt: lastTwoDays } }],
+      $or: [{ isCompleted: false }, { createdAt: { $gt: lastTwoDays } }],
+      isDeleted:false
     });
     res.json(todoList);
   } catch (err) {

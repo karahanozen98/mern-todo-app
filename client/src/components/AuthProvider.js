@@ -7,7 +7,7 @@ export const DispatchContext = React.createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "LOGIN":
-      return { currentUser: action.payload };
+      return { currentUser: action.payload, isLoading: false };
     default:
       throw new Error("Action type not found: ", action.type);
   }
@@ -33,13 +33,15 @@ function AuthProvider({ children }) {
     }
   }, []);
 
-  return (
-    <AuthContext.Provider value={state.currentUser}>
-      <DispatchContext.Provider value={dispatch}>
-        {children}
-      </DispatchContext.Provider>
-    </AuthContext.Provider>
-  );
+  if (state.isLoading) return <h1>LOADING</h1>;
+  else
+    return (
+      <AuthContext.Provider value={state.currentUser}>
+        <DispatchContext.Provider value={dispatch}>
+          {children}
+        </DispatchContext.Provider>
+      </AuthContext.Provider>
+    );
 }
 
 export default AuthProvider;

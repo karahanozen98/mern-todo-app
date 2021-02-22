@@ -18,7 +18,7 @@ export default Unauthorized;
 const SignInWrapper = styled.div`
   width: 100%;
   min-height: 100vh;
-  background: teal;
+  background: cornflowerblue;
   display: flex;
   justify-content: center;
   align-items: center;
