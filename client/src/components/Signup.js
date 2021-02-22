@@ -14,7 +14,7 @@ const Signup = ({ setTab }) => {
     if ((username, password, passwordAgain)) {
       const body = JSON.stringify({ username, password });
 
-      fetch("http://localhost:5500/api/user/add", {
+      fetch("https://karahantodoapp.herokuapp.com/api/user/add", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: body,

@@ -14,7 +14,7 @@ const reducer = (state, action) => {
 };
 const initState = {
   currentUser: null,
-  isLoading: true,
+  isLoading: false,
 };
 
 function AuthProvider({ children }) {

@@ -50,14 +50,14 @@ const SingleTodo = ({ todo, updateTodo }) => {
   );
 };
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, setTodos }) => {
   const currentUser = useContext(AuthContext);
   const [name, setName] = useState("");
   const [state, setState] = useState(true);
 
   const addTodo = async () => {
     try {
-      const response = await fetch("http://localhost:5500/api/todo/add", {
+      const response = await fetch("https://karahantodoapp.herokuapp.com/api/todo/add", {
         method: "POST",
         headers: { "Content-type": "application/json" },
         body: JSON.stringify({ userId: currentUser._id, name: name }),
@@ -68,7 +68,7 @@ const TodoList = ({ todos }) => {
   const updateTodo = async (newTodo) => {
     try {
       const response = await fetch(
-        `http://localhost:5500/api/todo/update/${newTodo._id}`,
+        `https://karahantodoapp.herokuapp.com/api/todo/update/${newTodo._id}`,
         {
           method: "PATCH",
           headers: { "Content-type": "application/json" },
@@ -83,12 +83,12 @@ const TodoList = ({ todos }) => {
   };
 
   const setAllDone = async () => {
-    const updatedTodos = await todos.map(async (item) => {
+    const updatedTodos = await Promise.all(todos.map(async (item) => {
       item.isCompleted = true;
       await updateTodo(item);
-      console.log("x");
-    });
-    window.location.reload("/");
+      return item;
+    }))
+    setTodos([])
   };
 
   return (
@@ -119,7 +119,7 @@ function Home() {
   useEffect(async () => {
     try {
       const response = await fetch(
-        `http://localhost:5500/api/todo/${currentUser._id}`
+        `https://karahantodoapp.herokuapp.com/api/todo/${currentUser._id}`
       );
       response
         .json()
@@ -145,7 +145,7 @@ function Home() {
           Log Out
         </div>
       </NavbarWrapper>
-      <TodoList todos={todos} />
+      <TodoList todos={todos} setTodos={setTodos}/>
     </React.Fragment>
   );
 }
